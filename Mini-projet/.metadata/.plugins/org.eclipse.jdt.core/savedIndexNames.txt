@@ -1,0 +1,7 @@
+INDEX VERSION 1.134+/home/llc0251/Documents/S8/Projets/TDL/Mini-projet/.metadata/.plugins/org.eclipse.jdt.core
+3696720742.index
+1414400313.index
+1603554539.index
+1397754810.index
+1865797976.index
+2949097923.index
