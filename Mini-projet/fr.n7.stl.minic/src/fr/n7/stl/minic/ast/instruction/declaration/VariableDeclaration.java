@@ -3,6 +3,8 @@
  */
 package fr.n7.stl.minic.ast.instruction.declaration;
 
+import java.util.ArrayList;
+import java.util.List;
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.minic.ast.instruction.Instruction;
@@ -12,6 +14,7 @@ import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.TAMInstruction;
 
 /**
  * Abstract Syntax Tree node for a variable declaration instruction.
@@ -131,7 +134,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType is undefined in VariableDeclaration.");
+		return this.getType().equalsTo(this.value.getType());
 	}
 
 	/* (non-Javadoc)
@@ -147,7 +150,9 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode is undefined in VariableDeclaration.");
+		List<TAMInstruction> list_instruction = new ArrayList<>();
+		list_instruction.add(_factory.createLoad(this.getRegister(), this.getOffset(), this.getType().length()));
+		return _factory.createFragment(list_instruction);
 	}
 
 }

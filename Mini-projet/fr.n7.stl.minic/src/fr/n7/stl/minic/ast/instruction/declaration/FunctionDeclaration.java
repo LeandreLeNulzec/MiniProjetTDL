@@ -121,7 +121,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in FunctionDeclaration.");
+		return this.body.checkType();
 	}
 
 	/* (non-Javadoc)
@@ -138,6 +138,9 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionDeclaration.");
+		//List<TAMInstruction> list_instruction;
+		//list_instruction.add(_factory.createLoad(this.getRegister(), this.getOffset(), /*SIZE*/));
+		//return _factory.createFragment(list_instruction);	
 	}
 
 }

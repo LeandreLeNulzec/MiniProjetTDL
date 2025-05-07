@@ -11,6 +11,9 @@ import fr.n7.stl.minic.ast.scope.SymbolTable;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.TAMInstruction;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,7 +99,13 @@ public class Block {
 	 * @return Synthesized True if the instruction is well typed, False if not.
 	 */	
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType is undefined in Block.");
+		Boolean well_typed = true;
+		for(Instruction i : instructions){
+			if (!i.checkType()){
+				well_typed = false;
+			}
+		}
+		return well_typed;
 	}
 
 	/**
@@ -116,7 +125,11 @@ public class Block {
 	 * @return Synthesized AST for the generated TAM code.
 	 */
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics generateCode is undefined in Block.");
+		Fragment frag = _factory.createFragment();
+		for(Instruction i : instructions){
+			frag.append(i.getCode(_factory));
+		}
+		return frag;
 	}
 
 }
