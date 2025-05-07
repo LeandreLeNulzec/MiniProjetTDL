@@ -3,6 +3,9 @@
  */
 package fr.n7.stl.minic.ast.instruction.declaration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.minic.ast.instruction.Instruction;
@@ -12,6 +15,7 @@ import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.TAMInstruction;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a constant declaration instruction.
@@ -128,7 +132,9 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ConstantDeclaration.");
+		Fragment frag = _factory.createFragment();
+		frag.append(this.value.getCode(_factory));
+		return frag;
 	}
 
 }

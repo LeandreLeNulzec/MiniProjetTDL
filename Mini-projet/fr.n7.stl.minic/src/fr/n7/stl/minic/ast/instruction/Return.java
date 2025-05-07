@@ -85,7 +85,9 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Return.");
-	}
+		Fragment frag = _factory.createFragment();
+		frag.append(this.value.getCode(_factory));
+		frag.append(this.function.getCode(_factory));
+		return frag;	}
 
 }

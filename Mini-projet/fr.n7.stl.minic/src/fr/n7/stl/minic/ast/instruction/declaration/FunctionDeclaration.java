@@ -12,6 +12,8 @@ import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -138,9 +140,16 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionDeclaration.");
-		//List<TAMInstruction> list_instruction;
-		//list_instruction.add(_factory.createLoad(this.getRegister(), this.getOffset(), /*SIZE*/));
-		//return _factory.createFragment(list_instruction);	
+
+		/*
+		List<TAMInstruction> list_instruction = new ArrayList<>();
+		for (ParameterDeclaration p : this.getParameters()){
+			p.getCode();
+		}
+		this.body.getCode(_factory);
+		list_instruction.add(_factory.createLoad(this.getRegister(), this.getOffset(), ));
+		return _factory.createFragment(list_instruction);	
+		*/
 	}
 
 }

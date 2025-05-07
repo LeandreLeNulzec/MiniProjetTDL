@@ -68,7 +68,9 @@ public class Second implements AccessibleExpression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Second.");
+		Fragment frag = _factory.createFragment();
+		frag.append(this.target.getCode(_factory));
+		return frag;
 	}
 
 }

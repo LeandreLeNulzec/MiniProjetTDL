@@ -30,7 +30,10 @@ public class ArrayAssignment extends AbstractArray<AssignableExpression> impleme
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in ArrayAssignment.");
+		Fragment frag = _factory.createFragment();
+		frag.append(this.array.getCode(_factory));
+		frag.append(this.index.getCode(_factory));
+		return frag;
 	}
 
 	
