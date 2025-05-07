@@ -3,12 +3,15 @@
  */
 package fr.n7.stl.minic.ast.instruction;
 
+import javax.lang.model.type.ErrorType;
+
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.minic.ast.expression.assignable.AssignableExpression;
 import fr.n7.stl.minic.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.minic.ast.type.AtomicType;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -49,7 +52,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Assignment.");
+		return this.value.collectAndPartialResolve(_scope) && this.assignable.collectAndPartialResolve(_scope);
 	}
 	
 	@Override
@@ -62,7 +65,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in Assignment.");
+		return assignable.completeResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -70,7 +73,11 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in Assignment.");
+		if (checkType()) {
+			return this.value.getType();
+		}
+		System.out.println("Les champs value et assignable sont de types différents");
+		return AtomicType.ErrorType;
 	}
 
 	/* (non-Javadoc)
@@ -78,7 +85,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in Assignment.");
+		return this.value.getType().equalsTo(this.assignable.getType());
 	}
 	
 	/* (non-Javadoc)
@@ -86,7 +93,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in Assignment.");
+		return this.value.getType().length();
 	}
 
 	/* (non-Javadoc)

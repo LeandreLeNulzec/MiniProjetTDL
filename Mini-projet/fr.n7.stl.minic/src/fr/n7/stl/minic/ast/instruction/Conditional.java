@@ -11,6 +11,7 @@ import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.minic.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.minic.ast.type.AtomicType;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -51,7 +52,13 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Conditional.");
+		boolean ok = true;
+		ok = ok && this.condition.collectAndPartialResolve(_scope);
+		ok = ok && this.thenBranch.collectAndPartialResolve(_scope);
+		if(this.elseBranch != null){
+			ok = ok && this.elseBranch.collectAndPartialResolve(_scope);
+		}
+		return ok;
 	}
 	
 	/* (non-Javadoc)
@@ -59,7 +66,7 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Conditional.");
+		return this.collectAndPartialResolve(_scope);
 	}
 	
 	/* (non-Javadoc)
@@ -67,7 +74,13 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in Conditional.");
+		boolean ok = true;
+		ok = ok && this.condition.completeResolve(_scope);
+		ok = ok && this.thenBranch.completeResolve(_scope);
+		if(this.elseBranch != null){
+			ok = ok && this.elseBranch.completeResolve(_scope);
+		}
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -75,7 +88,13 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in Conditional.");
+		boolean ok = true;
+		ok = ok && this.condition.getType().equalsTo(AtomicType.BooleanType);
+		ok = ok && this.thenBranch.checkType();
+		if(this.elseBranch != null){
+			ok = ok && this.elseBranch.checkType();
+		}
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -83,7 +102,7 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in Conditional.");
+		return 0;
 	}
 
 	/* (non-Javadoc)

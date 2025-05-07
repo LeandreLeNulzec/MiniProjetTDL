@@ -43,7 +43,7 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Return.");
+		return this.value.collectAndPartialResolve(_scope);
 	}
 	
 	/* (non-Javadoc)
@@ -51,7 +51,7 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in Return.");
+		return this.value.completeResolve(_scope);
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType undefined in Return.");
+		return this.value.getType().equals(function.getType());
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +77,7 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory undefined in Return.");
+		return 0;
 	}
 
 	/* (non-Javadoc)

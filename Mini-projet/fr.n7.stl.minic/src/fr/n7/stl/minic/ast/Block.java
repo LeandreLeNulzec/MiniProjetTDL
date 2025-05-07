@@ -80,7 +80,12 @@ public class Block {
 	 * allowed.
 	 */
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Iteration.");
+		boolean res = true;
+		SymbolTable newST = new SymbolTable(_scope);
+		for(Instruction i : instructions){
+			res = res && i.collectAndPartialResolve(newST, _container); 
+		}
+		return res;
 	}
 	
 	/**
@@ -91,7 +96,12 @@ public class Block {
 	 * block have been previously defined.
 	 */
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics resolve is undefined in Block.");
+		boolean res = true;
+		SymbolTable newST = new SymbolTable(_scope);
+		for(Instruction i : instructions){
+			res = res && i.completeResolve(newST); 
+		}
+		return res;
 	}
 
 	/**
@@ -114,8 +124,10 @@ public class Block {
 	 * @param _register Inherited Register associated to the address of the variables.
 	 * @param _offset Inherited Current offset for the address of the variables.
 	 */	
-	public void allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory is undefined in Block.");
+	public void allocateMemory(Register _register, int _offset) {	
+		for(Instruction i : instructions){
+			_offset = _offset + i.allocateMemory(_register, _offset); 
+		}
 	}
 
 	/**

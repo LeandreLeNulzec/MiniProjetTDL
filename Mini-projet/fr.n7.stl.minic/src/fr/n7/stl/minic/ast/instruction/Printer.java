@@ -8,6 +8,7 @@ import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.minic.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.minic.ast.type.AtomicType;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -38,7 +39,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Printer.");
+		return this.parameter.collectAndPartialResolve(_scope);
 	}
 	
 	@Override
@@ -51,7 +52,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in Printer.");
+		return this.parameter.completeResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -59,7 +60,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType undefined in Printer.");
+		return this.parameter.getType().equalsTo(AtomicType.StringType);
 	}
 
 	/* (non-Javadoc)
@@ -67,7 +68,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory undefined in Printer.");
+		return 0;
 	}
 
 	/* (non-Javadoc)
