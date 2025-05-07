@@ -48,5 +48,5 @@ public interface Expression {
 	 * @return Synthesized AST for the generated TAM code.
 	 */
 	public Fragment getCode(TAMFactory _factory);
-
+		
 }

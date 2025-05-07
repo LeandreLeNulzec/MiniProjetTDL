@@ -15,6 +15,7 @@ import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.TAMInstruction;
 
 /**
  * Abstract Syntax Tree node for a function declaration.
@@ -122,7 +123,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in FunctionDeclaration.");
+		return this.body.checkType();
 	}
 
 	/* (non-Javadoc)
@@ -139,6 +140,9 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionDeclaration.");
+		//List<TAMInstruction> list_instruction;
+		//list_instruction.add(_factory.createLoad(this.getRegister(), this.getOffset(), /*SIZE*/));
+		//return _factory.createFragment(list_instruction);	
 	}
 
 }
