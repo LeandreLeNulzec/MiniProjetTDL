@@ -64,7 +64,9 @@ public class ArrayAllocation implements AccessibleExpression, AssignableExpressi
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ArrayAllocation.");
+		Fragment frag = _factory.createFragment();
+		frag.append(this.size.getCode(_factory));
+		return frag;
 	}
 
 }

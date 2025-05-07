@@ -75,7 +75,9 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Printer.");
+		Fragment frag = _factory.createFragment();
+		frag.append(this.parameter.getCode(_factory));
+		return frag;
 	}
 
 }
