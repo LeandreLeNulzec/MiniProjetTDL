@@ -83,12 +83,19 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collectAndPartialResolve is undefined in ConstantDeclaration.");
+		boolean ok = true;
+		if(_scope.accepts(this)){
+			_scope.register(this);
+		} else {
+			ok = false;
+		}
+		ok = ok && this.value.collectAndPartialResolve(_scope);
+		return ok;
 	}
 	
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
-		throw new SemanticsUndefinedException( "Semantics collectAndPartialResolve is undefined in ConstantDeclaration.");
+		return this.collectAndPartialResolve(_scope);
 
 	}
 	
@@ -97,7 +104,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics completeResolve is undefined in ConstantDeclaration.");
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -105,7 +112,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in ConstantDeclaration.");
+		return this.getType().equalsTo(this.value.getType());
 	}
 
 	/* (non-Javadoc)
@@ -113,7 +120,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in ConstantDeclaration.");
+		return this.type.length();
 	}
 
 	/* (non-Javadoc)

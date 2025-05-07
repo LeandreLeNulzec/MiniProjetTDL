@@ -103,17 +103,19 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		if(!_scope.knows(this.name)){
+		boolean ok = true;
+		if(_scope.accepts(this)){
 			_scope.register(this);
-			return true;
+		} else {
+			ok = false;
 		}
-		return false;
+		ok = ok && this.value.collectAndPartialResolve(_scope);
+		return ok;
 	}
 	
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope, FunctionDeclaration _container) {
-		throw new SemanticsUndefinedException( "Semantics collectAndPartialResolve is undefined in VariableDeclaration.");
-
+		return this.collectAndPartialResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -121,7 +123,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in VariableDeclaration.");
+		return this.value.completeResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -136,8 +138,8 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 * @see fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)
 	 */
 	@Override
-	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory is undefined in VariableDeclaration.");
+	public int allocateMemory(Register _register, int _offset) {		
+		return this.getType().length();
 	}
 
 	/* (non-Javadoc)
