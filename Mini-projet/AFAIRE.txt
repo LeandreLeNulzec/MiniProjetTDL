@@ -1,0 +1,5 @@
+getCode : 
+    Expression / accessible / ParameterAccess
+               / allocation / PointerAllocation
+
+AbstractField : pas sur des resolve
