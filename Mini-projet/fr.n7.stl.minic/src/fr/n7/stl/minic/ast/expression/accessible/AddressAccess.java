@@ -50,7 +50,7 @@ public class AddressAccess implements AccessibleExpression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "getType is undefined in AddressAccess.");
+		return this.assignable.getType();
 	}
 	
 	/* (non-Javadoc)
