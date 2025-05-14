@@ -65,8 +65,8 @@ public class PointerAllocation implements AccessibleExpression, AssignableExpres
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
    		Fragment frag = _factory.createFragment();
-    	frag.add(_factory.createLoadL(this.element.length())); // Charge la taille à allouer
-    	frag.add(Library.MAlloc); // Appel de la primitive MAlloc, place l'adresse sur la pile
+    	frag.add(_factory.createLoadL(this.element.length()));
+    	frag.add(Library.MAlloc);
     	return frag;
 	}
 

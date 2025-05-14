@@ -3,6 +3,8 @@
  */
 package fr.n7.stl.minic.ast.expression.allocation;
 
+import java.util.function.BinaryOperator;
+
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.expression.Expression;
 import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
@@ -11,6 +13,7 @@ import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
@@ -65,7 +68,12 @@ public class ArrayAllocation implements AccessibleExpression, AssignableExpressi
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
-		frag.append(this.size.getCode(_factory));
+		Fragment sizeFragment = this.size.getCode(_factory);
+		frag.append(sizeFragment);
+		int elementSize = this.element.length();
+		frag.add(_factory.createLoadI(elementSize));
+		frag.add(Library.IMul);
+		frag.add(Library.MAlloc);
 		return frag;
 	}
 

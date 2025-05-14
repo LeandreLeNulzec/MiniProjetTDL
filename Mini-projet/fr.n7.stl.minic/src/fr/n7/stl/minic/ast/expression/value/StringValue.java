@@ -8,6 +8,7 @@ import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.AtomicType;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
@@ -66,7 +67,11 @@ public class StringValue implements Value {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _fragment = _factory.createFragment();
-//		_fragment.add(_factory.createLoadL(this.value));
+		for (int i = 0; i < this.value.length(); i++) {
+        	char c = this.value.charAt(i);
+        	_fragment.add(_factory.createLoadL((int) c));
+        	_fragment.add(_factory.createStore(Register.ST, i, 1));
+    	}
 		return _fragment;
 	}
 

@@ -5,6 +5,7 @@ package fr.n7.stl.minic.ast.expression;
 
 import java.beans.ParameterDescriptor;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.Register;
 
 /**
  * Abstract Syntax Tree node for a function call expression.
@@ -97,12 +99,21 @@ public class FunctionCall implements AccessibleExpression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		Fragment frag = _factory.createFragment();
-		frag.append(this.function.getCode(_factory));
-		for (AccessibleExpression a : this.arguments){
-			frag.append(a.getCode(_factory));
-		}
-		return frag;
-	}
+   		Fragment frag = _factory.createFragment();
 
+		List<Fragment> argumentFragments = new ArrayList<>();
+    	int offset = 0;
+
+    	for (int i = this.arguments.size() - 1; i >= 0; i--) {
+    	    AccessibleExpression arg = this.arguments.get(i);
+    	    Fragment argFrag = arg.getCode(_factory);
+            frag.append(argFrag);
+    	    offset += arg.getType().length(); 
+    	}
+        
+    	frag.add(_factory.createCall(Register.ST, offset+this.function.getParameters().size(), Register.LB));   
+    	
+		return frag;
 }
+}
+
