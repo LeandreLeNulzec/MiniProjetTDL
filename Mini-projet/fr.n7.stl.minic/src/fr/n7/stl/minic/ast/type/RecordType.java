@@ -69,7 +69,10 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in RecordType.");
+		if (_other instanceof RecordType){
+			return ((RecordType) _other).getName().contentEquals(name);
+		}
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +80,10 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in RecordType.");
+		if (_other instanceof RecordType){
+			return ((RecordType) _other).getName().contentEquals(name);
+		}
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -85,7 +91,11 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public Type merge(Type _other) {
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in RecordType.");
+		if (this.equals(_other)) {
+			return this;
+		} else {
+			return AtomicType.ErrorType;
+		}
 	}
 
 	/* (non-Javadoc)

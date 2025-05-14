@@ -53,7 +53,7 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	@Override
 	public Type getType() {
 		if (this.type == null) {
-			throw new SemanticsUndefinedException("Semantics collect undefined in TypeConversion.");
+			throw new SemanticsUndefinedException("AbstractConversion is Undefined when type is null.");
 		}else{
 			return type;
 		}
@@ -64,7 +64,16 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics collect undefined in TypeConversion.");
+		if (this.type == null) {
+			Declaration d = _scope.get(name);
+			if ( d != null) {
+				this.type = d.getType();
+			}
+		}
+		if (this.type != null  && target instanceof Type){
+			return type.compatibleWith((Type) target);
+		}
+		return false;
 	}
 
 	/* (non-Javadoc)
