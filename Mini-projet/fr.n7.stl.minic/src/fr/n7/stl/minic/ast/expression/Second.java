@@ -7,6 +7,8 @@ import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.minic.ast.type.AtomicType;
+import fr.n7.stl.minic.ast.type.CoupleType;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -39,28 +41,31 @@ public class Second implements AccessibleExpression {
 	}
 
 	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.expression.Expression#collect(fr.n7.stl.block.ast.scope.HierarchicalScope)
+	 */
+	@Override
+	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
+		return this.target.collectAndPartialResolve(_scope);
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.expression.Expression#resolve(fr.n7.stl.block.ast.scope.HierarchicalScope)
+	 */
+	@Override
+	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
+		return true;
+	}
+	
+	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getType()
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException("Semantics getType undefined in Second.");
-	}
-	
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.expression.Expression#collect(fr.n7.stl.block.ast.scope.Scope)
-	 */
-	@Override
-	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics collect undefined in Second.");
-
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.expression.Expression#resolve(fr.n7.stl.block.ast.scope.Scope)
-	 */
-	@Override
-	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics resolve undefined in Second.");
+		if (!(this.target.getType() instanceof CoupleType)){
+			return AtomicType.ErrorType;
+		}else{
+			return ((CoupleType) target).getSecond();
+		}
 	}
 
 	/* (non-Javadoc)

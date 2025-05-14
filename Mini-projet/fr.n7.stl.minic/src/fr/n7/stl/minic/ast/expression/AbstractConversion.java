@@ -52,7 +52,11 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException("Semantics getType undefined in TypeConversion.");
+		if (this.type == null) {
+			throw new SemanticsUndefinedException("Semantics collect undefined in TypeConversion.");
+		}else{
+			return type;
+		}
 	}
 	
 	/* (non-Javadoc)
