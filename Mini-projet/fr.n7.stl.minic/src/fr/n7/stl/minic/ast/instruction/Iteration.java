@@ -11,6 +11,7 @@ import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.AtomicType;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -80,8 +81,22 @@ public class Iteration implements Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
+    
+		String labelCondition = "label_condition_" + _factory.createLabelNumber();
+		String labelEnd = "label_end_" + _factory.createLabelNumber();
+		
+		frag.addPrefix(labelCondition);
+	
 		frag.append(this.condition.getCode(_factory));
+	
+		frag.add(_factory.createJumpIf(labelEnd, 1));
+		
 		frag.append(this.body.getCode(_factory));
+		
+		frag.addSuffix(labelCondition);
+	
+		frag.addSuffix(labelEnd);
+		
 		return frag;
 	}
 

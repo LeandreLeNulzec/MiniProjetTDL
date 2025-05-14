@@ -39,7 +39,7 @@ public class ParameterAccess extends AbstractAccess {
 	 */
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
-		frag.add(_factory.createLoadA(Register.ST, this.declaration.getOffset()));
+		frag.add(_factory.createLoad(Register.ST, this.declaration.getOffset(), this.declaration.getType().length()));
 		return frag;
 	}
 

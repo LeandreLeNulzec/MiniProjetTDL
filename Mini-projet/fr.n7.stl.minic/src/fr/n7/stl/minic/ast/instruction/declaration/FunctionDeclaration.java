@@ -8,6 +8,7 @@ import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.instruction.Instruction;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.minic.ast.type.AtomicType;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -139,17 +140,25 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionDeclaration.");
-
-		/*
-		List<TAMInstruction> list_instruction = new ArrayList<>();
-		for (ParameterDeclaration p : this.getParameters()){
-			p.getCode();
-		}
-		this.body.getCode(_factory);
-		list_instruction.add(_factory.createLoad(this.getRegister(), this.getOffset(), ));
-		return _factory.createFragment(list_instruction);	
-		*/
+    	Fragment frag = _factory.createFragment();
+    
+    	String functionLabel = this.name + "_label";
+    
+    	frag.addPrefix(functionLabel);
+    
+    	int offset = 0;
+    	for (ParameterDeclaration param : this.parameters) {
+       		offset += param.getType().length();
+    	}
+    
+    	frag.append(this.body.getCode(_factory));
+    
+    	if (!this.type.equals(AtomicType.VoidType)) {
+    	    frag.add(_factory.createLoad(Register.ST, offset, this.type.length()));
+    	}
+    	frag.addSuffix(functionLabel);
+    
+    	return frag;
 	}
 
 }

@@ -86,8 +86,16 @@ public class Return implements Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
+
 		frag.append(this.value.getCode(_factory));
-		frag.append(this.function.getCode(_factory));
-		return frag;	}
+	
+		if (this.function != null && this.function.getType() != null) {
+			frag.add(_factory.createStoreI(this.function.getType().length()));
+		}
+	
+		frag.add(_factory.createReturn(0, this.function.getType().length())); 
+	
+		return frag;
+	}
 
 }

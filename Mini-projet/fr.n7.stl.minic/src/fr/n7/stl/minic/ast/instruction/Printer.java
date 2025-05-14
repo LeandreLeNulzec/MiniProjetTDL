@@ -10,6 +10,7 @@ import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.AtomicType;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -78,6 +79,7 @@ public class Printer implements Instruction {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
 		frag.append(this.parameter.getCode(_factory));
+		frag.add(Library.SOut);
 		return frag;
 	}
 

@@ -110,23 +110,31 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		Fragment frag = _factory.createFragment();
-		frag.append(this.condition.getCode(_factory));
-	
-		Fragment thenFrag = this.thenBranch.getCode(_factory);
-		Fragment elseFrag = (this.elseBranch != null) ? this.elseBranch.getCode(_factory) : _factory.createFragment();
-	
-		//int jumpToElseOffset = thenFrag.getInstructions().size() + 1;
-		//frag.add(_factory.createJumpIf(Register.CP, jumpToElseOffset, 0));
-	
-		frag.append(thenFrag);
-	
-		if (this.elseBranch != null) {
-			//int jumpToEndOffset = elseFrag.getInstructions().size();
-			//frag.add(_factory.createJump(Register.CP, jumpToEndOffset));
-			frag.append(elseFrag);
-		}
-		return frag;
-	}
+		 Fragment frag = _factory.createFragment();
+    
+		 String labelCondition = "label_condition_" + _factory.createLabelNumber();
+		 String labelElse = "label_else_" + _factory.createLabelNumber();
+		 String labelEnd = "label_end_" + _factory.createLabelNumber();
+	 
+		 frag.addPrefix(labelCondition);
+		 
+		 frag.append(this.condition.getCode(_factory));
+		 
+		 frag.add(_factory.createJumpIf(labelElse, 1));  
+		 
+		 frag.append(this.thenBranch.getCode(_factory));
+		 
+		 frag.add(_factory.createJump(labelEnd));
+	 
+		 frag.addSuffix(labelElse);
+	 
+		 if (this.elseBranch != null) {
+			 frag.append(this.elseBranch.getCode(_factory));
+		 }
+	 
+		 frag.addSuffix(labelEnd);
+	 
+		 return frag;
+	 }
 	
 }

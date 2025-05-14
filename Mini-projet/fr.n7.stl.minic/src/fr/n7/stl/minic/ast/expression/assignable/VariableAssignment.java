@@ -10,6 +10,8 @@ import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 
@@ -73,6 +75,7 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
 		frag.append(this.declaration.getCode(_factory));
+    	frag.add(_factory.createStore(Register.LB, 0, this.declaration.getType().length()));
 		return frag;
 	}
 

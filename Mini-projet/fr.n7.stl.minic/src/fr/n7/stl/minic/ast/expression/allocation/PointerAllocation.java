@@ -11,6 +11,7 @@ import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
 import fr.n7.stl.minic.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -63,9 +64,10 @@ public class PointerAllocation implements AccessibleExpression, AssignableExpres
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		Fragment frag = _factory.createFragment();
-		frag.add(_factory.createLoad(Register.ST, 0, this.element.length()));
-		return frag;	
+   		Fragment frag = _factory.createFragment();
+    	frag.add(_factory.createLoadL(this.element.length())); // Charge la taille à allouer
+    	frag.add(Library.MAlloc); // Appel de la primitive MAlloc, place l'adresse sur la pile
+    	return frag;
 	}
 
 }
