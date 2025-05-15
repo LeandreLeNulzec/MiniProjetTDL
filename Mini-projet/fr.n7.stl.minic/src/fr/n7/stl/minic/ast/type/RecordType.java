@@ -80,10 +80,13 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
+		boolean ok = true;
 		if (_other instanceof RecordType){
-			return ((RecordType) _other).getName().contentEquals(name);
+			for (FieldDeclaration f : fields){
+				ok = ok && (((RecordType)_other).get(f.getName()) != null && ((RecordType)_other).get(f.getName()).getType().equalsTo(f.getType()));
+			}
 		}
-		return false;
+		return ok;
 	}
 
 	/* (non-Javadoc)

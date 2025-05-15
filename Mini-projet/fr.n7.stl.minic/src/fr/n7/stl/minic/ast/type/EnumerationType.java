@@ -9,6 +9,7 @@ import java.util.List;
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.minic.ast.type.declaration.FieldDeclaration;
 import fr.n7.stl.minic.ast.type.declaration.LabelDeclaration;
 
 /**
@@ -50,7 +51,10 @@ public class EnumerationType implements Type, Declaration {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		throw new SemanticsUndefinedException("Semantics equalsTo is not implemented in EnumerationType.");
+		if (_other instanceof EnumerationType) {
+			return ((EnumerationType) _other).name.contentEquals(name);
+		}
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -58,7 +62,17 @@ public class EnumerationType implements Type, Declaration {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		throw new SemanticsUndefinedException("Semantics compatibleWith is not implemented in EnumerationType.");
+		boolean ok = true;
+		if (_other instanceof EnumerationType){			
+			for (LabelDeclaration l : labels){	
+				boolean otherContainsL = false;	
+				for (LabelDeclaration l2 : ((EnumerationType)_other).labels){
+					otherContainsL = otherContainsL || (l.getName().contentEquals(l2.getName()) && l.getType().equalsTo(l2.getType()));
+				}
+				ok = ok && otherContainsL;
+			}
+		}
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -74,7 +88,7 @@ public class EnumerationType implements Type, Declaration {
 	 */
 	@Override
 	public int length() {
-		throw new SemanticsUndefinedException("Semantics length is not implemented in EnumerationType.");
+		return 1;
 	}
 	
 	/* (non-Javadoc)

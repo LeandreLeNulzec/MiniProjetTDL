@@ -66,7 +66,7 @@ public class PointerType implements Type {
 	 */
 	@Override
 	public int length() {
-		throw new SemanticsUndefinedException("Semantics length undefined in PointerType.");
+		return AtomicType.IntegerType.length();
 	}
 
 	/* (non-Javadoc)

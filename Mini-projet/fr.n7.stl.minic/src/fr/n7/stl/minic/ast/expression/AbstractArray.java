@@ -4,6 +4,9 @@ import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.expression.accessible.AccessibleExpression;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.minic.ast.type.ArrayType;
+import fr.n7.stl.minic.ast.type.AtomicType;
+import fr.n7.stl.minic.ast.type.AtomicType.*;
 import fr.n7.stl.minic.ast.type.Type;
 
 /**
@@ -47,7 +50,7 @@ public abstract class AbstractArray<ArrayKind extends Expression> implements Exp
 	 */
 	@Override
 	public boolean collectAndPartialResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "collect is undefined in Abstract Array.");
+		return array.collectAndPartialResolve(_scope) && index.collectAndPartialResolve(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -55,7 +58,7 @@ public abstract class AbstractArray<ArrayKind extends Expression> implements Exp
 	 */
 	@Override
 	public boolean completeResolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "resolve is undefined in Abstract Array.");
+		return array.completeResolve(_scope) && index.completeResolve(_scope);
 	}
 	
 	/**
@@ -63,7 +66,10 @@ public abstract class AbstractArray<ArrayKind extends Expression> implements Exp
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		throw new SemanticsUndefinedException( "getType is undefined in AbstractArray.");
+		if ((array instanceof ArrayType) && (index.getType().equalsTo(AtomicType.IntegerType))){
+			return ((ArrayType)array).getType();
+		}
+		return AtomicType.ErrorType;
 	}
 
 }
