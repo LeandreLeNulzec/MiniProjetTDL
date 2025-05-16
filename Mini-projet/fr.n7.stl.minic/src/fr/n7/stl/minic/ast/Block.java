@@ -138,6 +138,14 @@ public class Block {
 	 */
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
+		int offset = 0;
+		Register baseRegister = Register.SB;
+
+		for(Instruction i : instructions){
+			offset += i.allocateMemory(baseRegister, offset);
+			i.allocateMemory((baseRegister), offset);
+		} 
+
 		for(Instruction i : instructions){
 			frag.append(i.getCode(_factory));
 		}

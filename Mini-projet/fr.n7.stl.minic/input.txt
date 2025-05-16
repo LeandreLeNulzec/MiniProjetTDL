@@ -1,6 +1,4 @@
 monProgramme {
-    int i = 0;
-    if (j == 0) {
-    	i = 1;
-    }
+    String x = "abcd";
+    print(x);
 }

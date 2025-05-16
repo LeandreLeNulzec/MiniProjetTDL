@@ -1,0 +1,7 @@
+LOAD (1) 0[SB]
+PUSH 1
+;fr.n7.stl.minic.ast.expression.accessible.VariableAccess@136432db
+LOAD (1) 0[SB]
+SUBR SOut
+HALT
+

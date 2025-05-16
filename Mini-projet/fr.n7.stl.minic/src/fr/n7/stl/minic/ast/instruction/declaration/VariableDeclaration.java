@@ -141,8 +141,10 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 * @see fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)
 	 */
 	@Override
-	public int allocateMemory(Register _register, int _offset) {		
-		return this.getType().length();
+	public int allocateMemory(Register _register, int _offset) {	
+		this.register = _register;
+		this.offset = _offset;	
+		return this.offset;
 	}
 
 	/* (non-Javadoc)
@@ -150,9 +152,10 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		List<TAMInstruction> list_instruction = new ArrayList<>();
-		list_instruction.add(_factory.createLoad(this.getRegister(), this.getOffset(), this.getType().length()));
-		return _factory.createFragment(list_instruction);
+		Fragment frag = _factory.createFragment();
+		frag.add(_factory.createLoad(this.getRegister(), this.getOffset(), this.getType().length()));
+		frag.add(_factory.createPush(this.getType().length()));
+		return frag;
 	}
 
 }
