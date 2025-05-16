@@ -1,4 +1,18 @@
 monProgramme {
+<<<<<<< HEAD
     String x = "abcd";
     print(x);
 }
+=======
+    int i = 0;
+    const int j = 5;
+    boolean b = true;
+    typedef int Entier;
+    int* k = &i;
+    int l = j;
+    <int,int> c = <l, i>;
+    int tab[] = new int[10];
+    int tabs = fst c;
+}
+
+>>>>>>> 8e5924c2234c5923ac57fff3f170dd0a7492ad9d

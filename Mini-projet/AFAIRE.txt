@@ -2,7 +2,6 @@ AbstractField : pas sur des resolve
 EnumerationType : merge
 abstractConditionanl : getcode
 Abstractconversion : getcode et complete resolve
-FunctionCall
 functionDeclaration
 Arraytype : lenght
 FunctionType

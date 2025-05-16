@@ -83,11 +83,12 @@ public class NamedType implements Type {
 	 */
 	public Type getType() {
 		Type _result = this.declaration.getType();
-		if (_result instanceof NamedType) {
-			return ((NamedType) _result).getType();
-		} else {
-			return _result;
-		}
+		// if (_result instanceof NamedType) {
+		// 	return ((NamedType) _result).getType();
+		// } else {
+		// 	return _result;
+		// }
+		return _result;
 	}
 
 	/*
