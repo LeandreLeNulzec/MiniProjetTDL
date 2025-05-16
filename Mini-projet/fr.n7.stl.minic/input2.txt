@@ -1,0 +1,5 @@
+monProgramme {
+    int j = 1;
+    int i = j+47;
+}
+
