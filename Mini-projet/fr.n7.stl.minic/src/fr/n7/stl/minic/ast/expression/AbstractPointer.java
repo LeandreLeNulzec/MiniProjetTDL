@@ -3,6 +3,9 @@ package fr.n7.stl.minic.ast.expression;
 import fr.n7.stl.minic.ast.SemanticsUndefinedException;
 import fr.n7.stl.minic.ast.scope.Declaration;
 import fr.n7.stl.minic.ast.scope.HierarchicalScope;
+import fr.n7.stl.minic.ast.type.ArrayType;
+import fr.n7.stl.minic.ast.type.AtomicType;
+import fr.n7.stl.minic.ast.type.PointerType;
 import fr.n7.stl.minic.ast.type.Type;
 
 /**
@@ -55,7 +58,10 @@ public abstract class AbstractPointer<PointerKind extends Expression> implements
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		return this.pointer.getType();
+		if ((pointer.getType() instanceof PointerType)){
+			return ((PointerType)pointer.getType()).getPointedType();
+		}
+		return AtomicType.ErrorType;
 	}
 
 }

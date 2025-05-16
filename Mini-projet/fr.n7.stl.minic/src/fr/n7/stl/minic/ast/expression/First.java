@@ -63,10 +63,10 @@ public class First implements AccessibleExpression {
 	 */
 	@Override
 	public Type getType() {
-		if (!(this.target instanceof CoupleType)){
+		if (!(this.target.getType() instanceof CoupleType)){
 		 	return AtomicType.ErrorType;
 		}else{
-			return ((CoupleType) target).getFirst();
+			return ((CoupleType)target.getType()).getFirst();
 		}
 	}
 

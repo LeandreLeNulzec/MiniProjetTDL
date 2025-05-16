@@ -64,7 +64,7 @@ public class Second implements AccessibleExpression {
 		if (!(this.target.getType() instanceof CoupleType)){
 			return AtomicType.ErrorType;
 		}else{
-			return ((CoupleType) target).getSecond();
+			return ((CoupleType) target.getType()).getSecond();
 		}
 	}
 

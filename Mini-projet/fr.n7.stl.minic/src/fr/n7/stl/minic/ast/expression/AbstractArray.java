@@ -66,8 +66,8 @@ public abstract class AbstractArray<ArrayKind extends Expression> implements Exp
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		if ((array instanceof ArrayType) && (index.getType().equalsTo(AtomicType.IntegerType))){
-			return ((ArrayType)array).getType();
+		if ((array.getType() instanceof ArrayType) && (index.getType().equalsTo(AtomicType.IntegerType))){
+			return ((ArrayType)array.getType()).getType();
 		}
 		return AtomicType.ErrorType;
 	}
