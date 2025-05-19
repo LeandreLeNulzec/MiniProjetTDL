@@ -112,20 +112,14 @@ public class Conditional implements Instruction {
 	public Fragment getCode(TAMFactory _factory) {
 		 Fragment frag = _factory.createFragment();
     
-		 String labelCondition = "label_condition_" + _factory.createLabelNumber();
 		 String labelElse = "label_else_" + _factory.createLabelNumber();
 		 String labelEnd = "label_end_" + _factory.createLabelNumber();
-	 
-		 frag.addPrefix(labelCondition);
-		 
+	 		 
+
 		 frag.append(this.condition.getCode(_factory));
-		 
-		 frag.add(_factory.createJumpIf(labelElse, 1));  
-		 
+		 frag.add(_factory.createJumpIf(labelElse, 0));  		 
 		 frag.append(this.thenBranch.getCode(_factory));
-		 
 		 frag.add(_factory.createJump(labelEnd));
-	 
 		 frag.addSuffix(labelElse);
 	 
 		 if (this.elseBranch != null) {

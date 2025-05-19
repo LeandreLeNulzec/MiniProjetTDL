@@ -29,7 +29,10 @@ public class PointerAccess extends AbstractPointer<AccessibleExpression> impleme
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		return this.pointer.getCode(_factory);
+		Fragment frag = _factory.createFragment();
+		frag.append(this.pointer.getCode(_factory));
+		frag.add(_factory.createLoadI(this.pointer.getType().length()));
+		return frag;
 	}
 
 	@Override

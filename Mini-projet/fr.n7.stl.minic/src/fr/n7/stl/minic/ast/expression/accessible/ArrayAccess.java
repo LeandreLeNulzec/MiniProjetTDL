@@ -31,9 +31,14 @@ public class ArrayAccess extends AbstractArray<AccessibleExpression> implements 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
-		frag.append(this.index.getCode(_factory));
 		frag.append(this.array.getCode(_factory));
-		return frag;	
+		frag.append(this.index.getCode(_factory));
+		frag.add(_factory.createLoadL(this.getType().length()));
+		frag.add(Library.IMul);
+		frag.add(Library.IAdd);
+		frag.add(_factory.createLoadI(this.getType().length()));
+		return frag;
+		//throw new SemanticsUndefinedException( "getCode is undefined in ArrayAccess.");
 	}
 
 }

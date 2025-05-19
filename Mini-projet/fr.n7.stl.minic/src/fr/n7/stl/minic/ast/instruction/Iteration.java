@@ -84,17 +84,16 @@ public class Iteration implements Instruction {
     
 		String labelCondition = "label_condition_" + _factory.createLabelNumber();
 		String labelEnd = "label_end_" + _factory.createLabelNumber();
-		
+		frag.append(this.condition.getCode(_factory));
+
 		frag.addPrefix(labelCondition);
 	
-		frag.append(this.condition.getCode(_factory));
-	
-		frag.add(_factory.createJumpIf(labelEnd, 1));
+		frag.add(_factory.createJumpIf(labelEnd, 0));
 		
 		frag.append(this.body.getCode(_factory));
 		
-		frag.addSuffix(labelCondition);
-	
+		frag.add(_factory.createJump(labelCondition));
+
 		frag.addSuffix(labelEnd);
 		
 		return frag;

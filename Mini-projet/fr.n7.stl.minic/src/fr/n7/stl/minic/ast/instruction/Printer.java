@@ -79,8 +79,18 @@ public class Printer implements Instruction {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
 		frag.append(this.parameter.getCode(_factory));
-		frag.add(Library.SOut);
-		return frag;
+		if (this.parameter.getType().equalsTo(AtomicType.CharacterType)) {
+			frag.add(Library.COut);
+		} else if (this.parameter.getType().equalsTo(AtomicType.BooleanType)) {
+			frag.add(Library.BOut);
+		} else if (this.parameter.getType().equalsTo(AtomicType.IntegerType)) {
+			frag.add(Library.IOut);
+		} else if (this.parameter.getType().equalsTo(AtomicType.StringType)) {
+			frag.add(Library.SOut);
+		} else {
+			System.err.println("Error: Cannot print value of type " + this.parameter.getType().toString());
+		} 	
+		return _frag;
 	}
 
 }
