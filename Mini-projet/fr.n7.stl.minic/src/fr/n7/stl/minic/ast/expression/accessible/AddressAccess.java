@@ -61,7 +61,7 @@ public class AddressAccess implements AccessibleExpression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
-		frag.append(this.assignable.getCode(_factory));
+		frag.add(_factory.createLoadA(Register.SB,0));
 		return frag;
 	}
 
