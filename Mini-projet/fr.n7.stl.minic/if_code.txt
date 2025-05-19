@@ -1,0 +1,7 @@
+mp {
+    boolean b = true;
+    int i = 0;
+    if (b) {
+        i = 2;
+    }
+}

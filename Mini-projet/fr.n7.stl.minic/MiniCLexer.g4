@@ -18,6 +18,7 @@ Virgule: ',';
 PointVirgule: ';';
 Afficher: 'print';
 Si: 'if';
+While: 'while';
 Sinon: 'else';
 Retour: 'return';
 DefinitionConstante: 'const';

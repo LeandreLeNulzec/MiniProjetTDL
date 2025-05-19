@@ -158,6 +158,18 @@ public class MiniCParserBaseListener implements MiniCParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterInstructionWhile(MiniCParser.InstructionWhileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstructionWhile(MiniCParser.InstructionWhileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInstructionReturn(MiniCParser.InstructionReturnContext ctx) { }
 	/**
 	 * {@inheritDoc}

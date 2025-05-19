@@ -1,0 +1,7 @@
+mp {
+    boolean b = true;
+    int i = 0;
+    while (b) {
+        i = i+1;
+    }
+}

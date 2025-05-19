@@ -1,12 +1,9 @@
 monProgramme {
     int i = 0;
     const int j = 5;
-    boolean b = true;
     typedef int Entier;
-    int* k = &i;
-    int l = j;
-    <int,int> c = <l, i>;
-    int tab[] = new int[10];
+    Entier l3 = 5;
+    <int,int> c = <i, i>;
     int tabs = fst c;
 }
 

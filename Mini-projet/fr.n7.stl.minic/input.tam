@@ -1,7 +1,17 @@
 LOAD (1) 0[SB]
 PUSH 1
-;fr.n7.stl.minic.ast.expression.accessible.VariableAccess@136432db
-LOAD (1) 0[SB]
-SUBR SOut
+LOADL 5
+LOAD (1) 2[SB]
+PUSH 1
+LOAD (1) 4[SB]
+PUSH 1
+LOAD (1) 8[SB]
+PUSH 1
+LOAD (1) 16[SB]
+PUSH 1
+LOAD (2) 32[SB]
+PUSH 2
+LOAD (1) 64[SB]
+PUSH 1
 HALT
 

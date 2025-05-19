@@ -143,6 +143,18 @@ public interface MiniCParserListener extends ParseTreeListener {
 	 */
 	void exitInstructionSiSansSinon(MiniCParser.InstructionSiSansSinonContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code instructionWhile}
+	 * labeled alternative in {@link MiniCParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterInstructionWhile(MiniCParser.InstructionWhileContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code instructionWhile}
+	 * labeled alternative in {@link MiniCParser#instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitInstructionWhile(MiniCParser.InstructionWhileContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code instructionReturn}
 	 * labeled alternative in {@link MiniCParser#instruction}.
 	 * @param ctx the parse tree
