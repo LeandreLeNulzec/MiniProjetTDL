@@ -124,10 +124,12 @@ public class Block {
 	 * @param _register Inherited Register associated to the address of the variables.
 	 * @param _offset Inherited Current offset for the address of the variables.
 	 */	
-	public void allocateMemory(Register _register, int _offset) {	
+	public void allocateMemory(Register _register, int _offset) {
+		int initial_offset = _offset;
 		for(Instruction i : instructions){
-			_offset = _offset + i.allocateMemory(_register, _offset); 
+			_offset += i.allocateMemory(_register, _offset); 
 		}
+		this.allocationSize = _offset - initial_offset;
 	}
 
 	/**
@@ -138,14 +140,7 @@ public class Block {
 	 */
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
-		int offset = 0;
-		Register baseRegister = Register.SB;
-
-		for(Instruction i : instructions){
-			offset += i.allocateMemory(baseRegister, offset);
-			i.allocateMemory((baseRegister), offset);
-		} 
-
+		
 		for(Instruction i : instructions){
 			frag.append(i.getCode(_factory));
 		}
