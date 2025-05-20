@@ -129,7 +129,6 @@ public class Block {
 		for(Instruction i : instructions){
 			_offset += i.allocateMemory(_register, _offset); 
 		}
-		this.allocationSize = _offset - initial_offset;
 	}
 
 	/**

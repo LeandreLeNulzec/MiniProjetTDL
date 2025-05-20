@@ -90,7 +90,7 @@ public class Printer implements Instruction {
 		} else {
 			System.err.println("Error: Cannot print value of type " + this.parameter.getType().toString());
 		} 	
-		return _frag;
+		return frag;
 	}
 
 }

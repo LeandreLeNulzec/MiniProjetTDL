@@ -3,5 +3,7 @@ mp {
     int i = 0;
     if (b) {
         i = 2;
+    }else{
+        i = 1;
     }
 }

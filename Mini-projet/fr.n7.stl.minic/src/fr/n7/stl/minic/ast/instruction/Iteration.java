@@ -80,6 +80,7 @@ public class Iteration implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
+		System.out.println("teste");
 		Fragment frag = _factory.createFragment();
     
 		String labelCondition = "label_condition_" + _factory.createLabelNumber();

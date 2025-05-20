@@ -1,6 +1,0 @@
-LOAD (1) 0[SB]
-PUSH 1
-LOAD (1) 0[SB]
-PUSH 1
-HALT
-

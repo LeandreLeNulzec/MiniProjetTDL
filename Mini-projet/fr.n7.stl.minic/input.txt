@@ -1,9 +1,9 @@
 monProgramme {
     int i = 0;
     const int j = 5;
-    typedef int Entier;
-    Entier l3 = 5;
     <int,int> c = <i, i>;
     int tabs = fst c;
+    int* k = &i;
+    int l = *k;
 }
 
